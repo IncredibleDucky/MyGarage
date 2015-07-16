@@ -25,5 +25,9 @@
 //Delete
 - (void)deleteCar:(Car *)car;
 
+//Save Methods
+- (void)savesToDefaults;
+- (void)loadsToDefaults;
+
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "CarController.h"
+static NSString *carsKey = @"carsKey";
 
 @implementation CarController
 
@@ -16,6 +17,7 @@
     dispatch_once(&onceToken, ^{
         sharedInstance = [CarController new];
         sharedInstance.cars = @[];
+        [sharedInstance loadsToDefaults];
     });
     
     return sharedInstance;
@@ -43,6 +45,33 @@
     [mutableCars removeObject:car];
     
     self.cars = mutableCars;
+    [self savesToDefaults];
+}
+
+- (void)savesToDefaults {
+    
+    NSMutableArray *carDictionaries = [NSMutableArray new];
+    
+    for (Car *car in self.cars) {
+        [carDictionaries addObject:[car carDictionary]];
+    }
+    
+    [[NSUserDefaults standardUserDefaults] setObject:carDictionaries   forKey:carsKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    
+}
+
+- (void)loadsToDefaults {
+    NSArray *carDictionaries = [[NSUserDefaults standardUserDefaults] objectForKey:carsKey];
+    
+    NSMutableArray *carModelObjects = [NSMutableArray new];
+    
+    for(NSDictionary *carDictionary in carDictionaries) {
+        Car *car = [[Car alloc] initWithDictionary:carDictionary];
+        [carModelObjects addObject: car];
+    }
+    
 }
 
 

@@ -22,6 +22,9 @@
 @property (assign, nonatomic) BOOL isConvertable;
 @property (strong, nonatomic) Tire *tires;
 
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary;
+- (NSDictionary *)carDictionary;
+
 - (void)go;
 - (void)stop;
 - (void)honk;

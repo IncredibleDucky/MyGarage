@@ -28,16 +28,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
-    Car *car1 = [[CarController sharedInstance] createCar];
-    car1.year = @"2010";
-    car1.make = @"Honda";
-    car1.model = @"Civic Si";
-    
-    Car *car2 = [[CarController sharedInstance] createCar];
-    car2.year = @"2001";
-    car2.make = @"Toyota";
-    car2.model = @"Tacoma";
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -86,6 +77,7 @@
         newCar.year = carEntryViewController.yearTextField.text;
         newCar.make = carEntryViewController.makeTextField.text;
         newCar.model = carEntryViewController.modelTextField.text;
+        [[CarController sharedInstance] savesToDefaults];
     } else if ([segue.identifier isEqualToString:@"cancelNewCar"]) {
         //Do nothing. But maybe something in the future.
     }
